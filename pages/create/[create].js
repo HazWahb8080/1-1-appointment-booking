@@ -19,7 +19,7 @@ import { db } from "../../firebase";
 import { useRecoilState } from "recoil";
 import { FormState } from "../../atoms/FormAtom";
 
-function create() {
+function Create() {
   const { data: session, status } = useSession();
   const [formData, setFormData] = useRecoilState(FormState);
   const usermail = session?.user?.email;
@@ -66,4 +66,4 @@ function create() {
   );
 }
 
-export default create;
+export default Create;
