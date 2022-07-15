@@ -94,7 +94,7 @@ function Appointment({ data, id }) {
                   )
                 }
                 className="pb-1 text-sm  self-center border-t border-x 
-            border-white text-gray-100 bg-black smooth px-4 py-1 -mb-1"
+            border-white text-green-800 bg-green-200 hover:border-green-700 smooth px-4 py-1 -mb-1"
               >
                 published
               </button>
@@ -102,9 +102,9 @@ function Appointment({ data, id }) {
             <button
               onClick={() => router.push(`/create/${id}`)}
               className="pb-1 text-sm text-gray-800 self-center border-t border-x 
-            border-black hover:text-gray-100 hover:bg-black smooth px-4 py-1 -mb-1"
+             hover:border-black smooth px-4 py-1 -mb-1"
             >
-              edit
+              update
             </button>
           </div>
         </div>

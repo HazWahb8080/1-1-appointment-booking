@@ -27,7 +27,7 @@ function Mini_Slot({
   const [ActiveMiniSlot, setActiveMiniSlot] = useState([]);
   const handleMiniSlotes = (i, e) => {
     e.preventDefault();
-    setActiveMiniSlot([ ...ActiveMiniSlot , i]);
+    setActiveMiniSlot([...ActiveMiniSlot, i]);
     setTimeSlots([...timeSlots, `${hour}:${i * int}`]);
     let slotToUpdate = `${hour}:${i * int}`;
     addMiniSlotsToDb(slotToUpdate);
