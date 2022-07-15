@@ -28,15 +28,13 @@ function Create() {
   const { create: docId } = router.query;
 
   useEffect(() => {
-    async function getData() {
-      if (usermail && docId) {
+    if(!usermail || !docId) return;
+    const getData = async () => {
         const docRef = doc(db, "users", usermail, "appointments", docId);
         const docData = await getDoc(docRef);
-        console.log(docData.data().title)
         if (docData.exists()) {
           setFormData({ ...formData, title: docData.data().title });
         }
-      }
     }
     getData();
   }, [usermail, docId]);
@@ -49,7 +47,7 @@ function Create() {
     if (status === "unauthenticated") {
       router.push("/auth/signin");
     }
-  }, [session]);
+  }, [status]);
   return (
     <div className="items-center justify-center flex flex-col w-full" >
       <Header />

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { close_Icon, open_icon } from "../../utils/svgs/svgs";
 import { useRecoilState } from "recoil";
-
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useRouter } from "next/router";
@@ -18,26 +17,25 @@ function Slot({ hour, int, am, pm, activeDate }) {
   const usermail = session?.user?.email;
   const [slots, setSlots] = useRecoilState(ActiveSlotsState);
   const [isAm, setIsAm] = useRecoilState(IsAmState);
-
-  // fetch timeslots
-  useEffect(() => {
-    if (!usermail || !query || !activeDate) return;
-    onSnapshot(
-      collection(
-        db,
-        "users",
-        usermail,
-        "appointments",
-        query,
-        "dates",
-        activeDate,
-        "slots"
-      ),
-      (snapshot) => {
-        setSlots(snapshot.docs);
-      }
-    );
-  }, [usermail, query, activeDate]);
+  // // fetch timeslots
+  // useEffect(() => {
+  //   if (!usermail || !query || !activeDate) return;
+  //   onSnapshot(
+  //     collection(
+  //       db,
+  //       "users",
+  //       usermail,
+  //       "appointments",
+  //       query,
+  //       "dates",
+  //       activeDate.toString(),
+  //       "slots"
+  //     ),
+  //     (snapshot) => {
+  //       setSlots(snapshot.docs);
+  //     }
+  //   );
+  // }, [usermail, query, activeDate]);
 
   return (
     <div className="slot relative">

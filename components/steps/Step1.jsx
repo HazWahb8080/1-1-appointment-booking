@@ -46,7 +46,6 @@ function Step1() {
                   title: e.target.value,
                 }
               );
-              console.log("updated");
             }, 1500);
           }}
           className="input text-lg "

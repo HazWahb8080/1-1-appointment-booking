@@ -25,8 +25,7 @@ function CreateAppointment() {
               className="form-btn"
               onClick={() => setFormData({ ...formData, step: step - 1 })}
             >
-              {" "}
-              Back{" "}
+              Back
             </button>
           )}
           {step !== 3 && (

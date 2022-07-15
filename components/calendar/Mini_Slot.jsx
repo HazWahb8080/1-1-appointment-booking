@@ -25,9 +25,14 @@ function Mini_Slot({
 }) {
   const [timeSlots, setTimeSlots] = useRecoilState(TimeSlotsState);
   const [ActiveMiniSlot, setActiveMiniSlot] = useState();
-  const addTimeSlots = async (i, slotToUpdate, e) => {
+  const handleMiniSlotes = (i, e) => {
     e.preventDefault();
-    if (!usermail || !query || !activeDate || !slotToUpdate) return;
+    setActiveMiniSlot(i);
+    setTimeSlots([...timeSlots, `${hour}:${i * int}`]);
+    let slotToUpdate = `${hour}:${i * int}`;
+    addMiniSlotsToDb(slotToUpdate);
+  };
+  const addMiniSlotsToDb = async (slotToUpdate) => {
     await setDoc(
       doc(
         db,
@@ -45,25 +50,18 @@ function Mini_Slot({
       }
     );
   };
+
   return (
     <>
-      {slots.map((slot, i) => (
+      {Array.from({ length: 4 }, (_, i) => (
         <div
           key={i}
           onClick={(e) => {
-            setActiveMiniSlot(i);
-            setTimeSlots([...timeSlots, `${hour}:${i * int}`]);
-            let slotToUpdate = `${hour}:${i * int}`;
-            addTimeSlots(i, slotToUpdate, e);
+            handleMiniSlotes(i, e);
           }}
           className={`border-b hover:bg-black hover:text-gray-100 
               smooth px-3 duration-200 border-black cursor-pointer
-               ${
-                 slot.data().slot === `${hour}:${i * int}` ||
-                 ActiveMiniSlot === i
-                   ? "bg-black text-gray-100"
-                   : ""
-               }
+               ${ActiveMiniSlot === i && "bg-black text-white"}
                   `}
         >
           {hour} : {i * int}
@@ -76,3 +74,8 @@ function Mini_Slot({
 }
 
 export default Mini_Slot;
+// ${
+//                  slot.data().slot === `${hour}:${i * int}` ||
+//                  ActiveMiniSlot === i
+//                    && "bg-black text-gray-100"
+//                }
