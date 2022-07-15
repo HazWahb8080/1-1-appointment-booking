@@ -61,7 +61,7 @@ function Header() {
         <div>
           <button
             onClick={() => (session ? setOpen(true) : signIn())}
-            className="bg-black py-3 px-4 text-gray-100 hover:bg-white hover:text-gray-900 transition border border-transparent ease-in-out duration-300 hover:border-black"
+            className="CTA-btn"
           >
             {session ? "Create Appointment" : "SignIn"}
           </button>

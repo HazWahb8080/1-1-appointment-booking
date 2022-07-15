@@ -53,4 +53,11 @@ a {
   .nav-title{
     @apply cursor-pointer hover:underline underline-offset-8
   }
+  .CTA-btn{
+    @apply bg-black py-3 px-4 text-gray-100 hover:bg-white hover:text-gray-900 transition border border-transparent ease-in-out duration-300 hover:border-black
+  }
+  .mini-slot{
+    @apply w-fit px-3 h-fit cursor-pointer hover:bg-black 
+              hover:text-gray-100 smooth items-center justify-center flex py-2 border border-gray-900 flex-col
+  }
 }

@@ -113,8 +113,7 @@ function Appointment({ data, id }) {
             <div
               onClick={() => getSlots(date.id)}
               key={date.id}
-              className={`w-fit px-3 h-fit cursor-pointer hover:bg-black 
-              hover:text-gray-100 smooth items-center justify-center flex py-2 border border-gray-900 flex-col
+              className={`mini-slot
               ${ActiveDate === date.id && "bg-black text-gray-100 smooth"}
               `}
             >
