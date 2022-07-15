@@ -24,7 +24,7 @@ a {
     @apply duration-300 ease-in-out transition
   }
   .form-btn{
-    @apply w-full smooth border py-3 px-6 hover:bg-white hover:border-black
+    @apply w-full smooth border bg-white border-black/20  hover:border-black py-4
   }
   .input{
     @apply border border-black rounded-none ring-0 outline-none 
@@ -49,5 +49,8 @@ a {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+  }
+  .nav-title{
+    @apply cursor-pointer hover:underline underline-offset-8
   }
 }

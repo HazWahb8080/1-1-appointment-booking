@@ -17,25 +17,6 @@ function Slot({ hour, int, am, pm, activeDate }) {
   const usermail = session?.user?.email;
   const [slots, setSlots] = useRecoilState(ActiveSlotsState);
   const [isAm, setIsAm] = useRecoilState(IsAmState);
-  // // fetch timeslots
-  // useEffect(() => {
-  //   if (!usermail || !query || !activeDate) return;
-  //   onSnapshot(
-  //     collection(
-  //       db,
-  //       "users",
-  //       usermail,
-  //       "appointments",
-  //       query,
-  //       "dates",
-  //       activeDate.toString(),
-  //       "slots"
-  //     ),
-  //     (snapshot) => {
-  //       setSlots(snapshot.docs);
-  //     }
-  //   );
-  // }, [usermail, query, activeDate]);
 
   return (
     <div className="slot relative">

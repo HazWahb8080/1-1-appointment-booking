@@ -15,7 +15,6 @@ import Appointment from "./../components/Appointment";
 
 function Dash() {
   const router = useRouter();
-  const { create: query } = router.query;
   const { data: session } = useSession();
   const usermail = session?.user?.email;
   // let's fetch the created appointments
@@ -34,7 +33,7 @@ function Dash() {
 
   return (
     <div className="w-full items-center h-full justify-center flex flex-col space-y-6">
-      <Header />
+      { router.pathname === "/dash" && <Header/>}
       {/*created appointments  list */}
       <div className="flex items-center justify-center w-full ">
         {loading ? (

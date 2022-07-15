@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { create_Icon, logo } from "./../utils/svgs/svgs";
 import { useRouter } from "next/router";
-import { signOut,signIn, useSession } from "next-auth/react";
+import { signOut, signIn, useSession } from "next-auth/react";
 import { Modal, Text, Input, Row, Checkbox, Button } from "@nextui-org/react";
 import { useRecoilState } from "recoil";
 import { FormState } from "../atoms/FormAtom";
@@ -51,13 +51,16 @@ function Header() {
       </div>
       {/* navlinks + btn */}
       <div className="items-center justify-evenly space-x-12 flex">
-        <h1> Dashboard </h1>
-        <h1> Blog </h1>
-        <h1> Pricing </h1>
-        {session && <h1 onClick={signOut}>signOut</h1>}
+        <h1 className="nav-title"> Blog </h1>
+        <h1 className="nav-title"> Pricing </h1>
+        {session && (
+          <h1 className="nav-title" onClick={signOut}>
+            signOut
+          </h1>
+        )}
         <div>
           <button
-            onClick={() => session ?  setOpen(true) : signIn() }
+            onClick={() => (session ? setOpen(true) : signIn())}
             className="bg-black py-3 px-4 text-gray-100 hover:bg-white hover:text-gray-900 transition border border-transparent ease-in-out duration-300 hover:border-black"
           >
             {session ? "Create Appointment" : "SignIn"}
@@ -72,7 +75,7 @@ function Header() {
           onClose={() => setOpen(false)}
         >
           <Modal.Header>
-            <h1 className="py-5 text-2xl">Create new Appointment</h1>
+            <h1 className="py-2 text-2xl">Create new Appointment</h1>
           </Modal.Header>
           <div className="w-full h-full space-y-6 items-center justify-center flex flex-col border px-6">
             <div className="w-full pb-2 text-lg">
@@ -94,15 +97,15 @@ function Header() {
                 </div>
               </div>
             </div>
-            <div className=" w-full py-3 px-6 border-b border-black/50 items-center justify-center flex">
+          </div>
+            <div className=" w-full bg-gray-50 py-6 px-6  items-center justify-center flex">
               <button
-                className="px-4 py-1 form-btn lg:w-1/2 w-full "
+                className="px-4 py-2 form-btn lg:w-1/2 w-full "
                 onClick={closeHandler}
               >
                 Close
               </button>
             </div>
-          </div>
         </Modal>
       </div>
     </div>

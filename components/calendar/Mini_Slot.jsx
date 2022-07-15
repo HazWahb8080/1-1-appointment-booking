@@ -24,10 +24,10 @@ function Mini_Slot({
   activeDate,
 }) {
   const [timeSlots, setTimeSlots] = useRecoilState(TimeSlotsState);
-  const [ActiveMiniSlot, setActiveMiniSlot] = useState();
+  const [ActiveMiniSlot, setActiveMiniSlot] = useState([]);
   const handleMiniSlotes = (i, e) => {
     e.preventDefault();
-    setActiveMiniSlot(i);
+    setActiveMiniSlot([ ...ActiveMiniSlot , i]);
     setTimeSlots([...timeSlots, `${hour}:${i * int}`]);
     let slotToUpdate = `${hour}:${i * int}`;
     addMiniSlotsToDb(slotToUpdate);
@@ -61,7 +61,7 @@ function Mini_Slot({
           }}
           className={`border-b hover:bg-black hover:text-gray-100 
               smooth px-3 duration-200 border-black cursor-pointer
-               ${ActiveMiniSlot === i && "bg-black text-white"}
+               ${ActiveMiniSlot.includes(i) && "bg-black text-white"}
                   `}
         >
           {hour} : {i * int}
