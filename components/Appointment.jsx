@@ -59,10 +59,17 @@ function Appointment({ data, id }) {
 
   const [ActiveDate, setActiveDate] = useState();
   const getSlots = (datesId) => {
-    setActiveDate(datesId);
     if (ActiveDate === datesId) {
-      setActiveDate(null);
+      // if the same active date clicked
+      setActiveDate("");
     }
+    // if another date clicked
+    if (ActiveDate !== datesId) {
+      // if the same active date clicked
+      setActiveDate("");
+      setActiveDate(datesId);
+    }
+
     const collRef_2 = collection(
       db,
       "users",

@@ -17,7 +17,7 @@ import { imageLanding } from './../utils/images/imgsDb';
 
 function Dash() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session , status } = useSession();
   const usermail = session?.user?.email;
   // let's fetch the created appointments
   const [appointments, setAppointments] = useState([]);
@@ -33,7 +33,7 @@ function Dash() {
     }
   }, [usermail]);
 
-  if (!usermail) {
+  if (status === "unauthenticated") {
     return (
       <div className="w-full items-center h-screen justify-center flex flex-col space-y-6">
         <div className="flex items-center h-full justify-center w-full ">
@@ -42,7 +42,7 @@ function Dash() {
         </div>
       </div>
     );
-  } else {
+  } else if (status === "authenticated") {
     return (
       <div className="w-full items-center h-full justify-center flex flex-col space-y-6">
         {router.pathname === "/dash" && <Header />}
