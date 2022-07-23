@@ -52,8 +52,7 @@ function Step3() {
         <div className="w-full items-center justify-center flex flex-col space-y-2 ">
           <div className="lg:w-1/2 w-full">
             <h1 className="text-sm font-medium border-b text-gray-600 ">
-              {" "}
-              Link{" "}
+              Link
             </h1>
             <input
               type="text"
@@ -72,13 +71,12 @@ function Step3() {
         <div className="w-full items-center justify-center flex flex-col space-y-2 ">
           <div className="lg:w-1/2 w-full ">
             <h1 className="text-sm font-medium border-b text-gray-600 ">
-              {" "}
-              Link{" "}
+              Link
             </h1>
             <input
               type="text"
               className="input w-full"
-              value={`https://bookify/meeting/${Link.trim().replace(
+              value={`https://bookly/meeting/${Link.trim().replace(
                 / /g,
                 "-"
               )}`}

@@ -41,12 +41,12 @@ function Header() {
   };
 
   return (
-    <div className=" border-b border-black w-full flex py-6 px-12 items-center justify-between">
+    <div className="shadow-md shadow-gray-50 w-full flex py-6 px-12 items-center justify-between">
       {/* logo */}
       <div className="flex space-x-1">
         <div className="w-8 h-8 items-center justify-center flex">{logo}</div>
         <h1 className="self-center font-medium text-gray-900 text-xl">
-          Bookify
+          Bookly
         </h1>
       </div>
       {/* navlinks + btn */}
@@ -98,14 +98,14 @@ function Header() {
               </div>
             </div>
           </div>
-            <div className=" w-full bg-gray-50 py-6 px-6  items-center justify-center flex">
-              <button
-                className="px-4 py-2 form-btn lg:w-1/2 w-full "
-                onClick={closeHandler}
-              >
-                Close
-              </button>
-            </div>
+          <div className=" w-full bg-gray-50 py-6 px-6  items-center justify-center flex">
+            <button
+              className="px-4 py-2 form-btn lg:w-1/2 w-full "
+              onClick={closeHandler}
+            >
+              Close
+            </button>
+          </div>
         </Modal>
       </div>
     </div>
