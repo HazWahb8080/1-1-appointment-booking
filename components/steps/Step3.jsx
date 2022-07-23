@@ -76,7 +76,7 @@ function Step3() {
             <input
               type="text"
               className="input w-full"
-              value={`https://bookly/meeting/${Link.trim().replace(
+              value={`https://bookify-three.vercel.app/meeting/${Link.trim().replace(
                 / /g,
                 "-"
               )}`}

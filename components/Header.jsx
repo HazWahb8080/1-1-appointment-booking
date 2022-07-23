@@ -46,7 +46,7 @@ function Header() {
       <div className="flex space-x-1">
         <div className="w-8 h-8 items-center justify-center flex">{logo}</div>
         <h1 className="self-center font-medium text-gray-900 text-xl">
-          Bookly
+          Boookly
         </h1>
       </div>
       {/* navlinks + btn */}
