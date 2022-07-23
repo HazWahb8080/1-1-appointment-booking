@@ -3,7 +3,7 @@ import React from 'react'
 function Slots({slots,open}) {
   return (
     <div className="w-full flex items-center justify-center">
-     { open && (slots.length>=1 ? <div className="w-full flex items-center justify-center border border-black ">
+     { open && ( slots.length >=1 ? <div className="w-full flex items-center justify-center border border-black ">
             {slots.map((slot) => (
               <div
               key={slot.id}

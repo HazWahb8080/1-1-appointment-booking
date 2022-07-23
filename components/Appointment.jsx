@@ -62,28 +62,28 @@ function Appointment({ data, id }) {
     if (ActiveDate === datesId) {
       // if the same active date clicked
       setActiveDate("");
+      setOpenDate(!openDate);
     }
     // if another date clicked
     if (ActiveDate !== datesId) {
       // if the same active date clicked
       setActiveDate("");
       setActiveDate(datesId);
+      const collRef_2 = collection(
+        db,
+        "users",
+        usermail,
+        "appointments",
+        id,
+        "dates",
+        datesId,
+        "slots"
+      );
+      onSnapshot(collRef_2, (snapshot) => {
+        setSlots(snapshot.docs);
+        setOpenDate(!openDate);
+      });
     }
-
-    const collRef_2 = collection(
-      db,
-      "users",
-      usermail,
-      "appointments",
-      id,
-      "dates",
-      datesId,
-      "slots"
-    );
-    onSnapshot(collRef_2, (snapshot) => {
-      setSlots(snapshot.docs);
-      setOpenDate(!openDate);
-    });
   };
 
   return (
@@ -122,7 +122,11 @@ function Appointment({ data, id }) {
               onClick={() => getSlots(date.id)}
               key={date.id}
               className={`mini-slot
-              ${ActiveDate === date.id && "bg-black text-gray-100 smooth"}
+              ${
+                ActiveDate === date.id &&
+                openDate &&
+                "bg-black text-gray-100 smooth"
+              }
               `}
             >
               <h1 className="text-xs text-left w-full  text-gray-400">
