@@ -30,8 +30,9 @@ function Meeting() {
     if(!meetingQueryData.Id) return;
       const {email,Id} = meetingQueryData;
       const getMeetingData = async () => {
-        const meetingData = await getDoc(doc(db,"users",email,"appointments",Id)) //getting the title of the appointment
-        const meetingDatesData = await getDocs(collection(db,"users",email,"appointments",Id,"dates")) //getting the dates available to this appointment
+        const docRef = doc(db,"users",email,"appointments",Id) //reference for the doc
+        const meetingData = await getDoc(docRef) //getting the title of the appointment
+        const meetingDatesData = await getDocs(collection(docRef,"dates")) //getting the dates available to this appointment
        setMeetingData({data:meetingData.data(),dates:meetingDatesData.docs});
     }
     getMeetingData();
@@ -42,7 +43,7 @@ function Meeting() {
   return (
     <div>
       <Header/>
-      <MultiForm data={meetingData} />
+      <MultiForm meetingData={meetingData} />
     </div>
   )
 }
