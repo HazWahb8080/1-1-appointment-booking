@@ -16,7 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 
-function Header() {
+function Header({ meetingPage }) {
   const router = useRouter();
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
@@ -51,21 +51,23 @@ function Header() {
       </div>
       {/* navlinks + btn */}
       <div className="items-center justify-evenly space-x-12 flex">
-        <h1 className="nav-title"> Blog </h1>
-        <h1 className="nav-title"> Pricing </h1>
-        {session && (
+        <h1 className="nav-title hidden lg:flex"> Blog </h1>
+        <h1 className="nav-title hidden lg:flex"> Pricing </h1>
+        {!meetingPage && session && (
           <h1 className="nav-title" onClick={signOut}>
             signOut
           </h1>
         )}
-        <div>
-          <button
-            onClick={() => (session ? setOpen(true) : signIn())}
-            className="CTA-btn"
-          >
-            {session ? "Create Appointment" : "SignIn"}
-          </button>
-        </div>
+        {!meetingPage && (
+          <div>
+            <button
+              onClick={() => (session ? setOpen(true) : signIn())}
+              className="CTA-btn"
+            >
+              {session ? "Create Appointment" : "SignIn"}
+            </button>
+          </div>
+        )}
         <Modal
           width="500px"
           css={{ height: "400px" }}

@@ -1,4 +1,5 @@
 import React from 'react'
+import Step1 from '../steps/step1/Step1';
 
 function MultiForm({meetingData}) {
     // data has the title
@@ -6,8 +7,8 @@ function MultiForm({meetingData}) {
     const {data,dates} = meetingData;
 
   return (
-    <div className="w-full h-full border border-black items-center justify-center flex flex-col">
-    
+    <div className="w-full h-3/4 items-center justify-center flex flex-col">
+        <Step1 data={data} />
     </div>
   )
 }
