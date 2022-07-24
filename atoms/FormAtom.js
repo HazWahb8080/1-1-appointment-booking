@@ -9,3 +9,12 @@ export const FormState = atom({
     dates: [],
   }, // default value (aka initial value)
 });
+export const MeetingFormState = atom({
+  key: "MeetingFormState", // unique ID (with respect to other atoms/selectors)
+  default: {
+    step: 1,
+    email:"",
+    name:"",
+    selectedDates: [],
+  },
+});
