@@ -20,7 +20,7 @@ function MultiForm({ meetingData }) {
   };
 
   return (
-    <div className="w-full md:w-1/2 border h-3/4 items-center justify-center flex flex-col">
+    <div className="w-full my-6 md:w-1/2 border h-3/4 items-center justify-center flex flex-col">
       {step === 1 ? (
         <Step1 data={data} />
       ) : step === 2 ? (
@@ -31,7 +31,7 @@ function MultiForm({ meetingData }) {
       <div className="w-full flex space-x-4 items-center justify-center">
         {step < 3 && (
           <button onClick={() => handleStep("+")} className="form-btn">
-            Next
+            { step === 1 ? "Let's get started" : "Next"}
           </button>
         )}
         {step > 1 && (
