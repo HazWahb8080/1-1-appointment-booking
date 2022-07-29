@@ -11,9 +11,16 @@ function MultiForm({ meetingData }) {
   const [meetingFormState, setMeetingFormState] =
     useRecoilState(MeetingFormState);
   const { step, email, name, selectedDates } = meetingFormState;
+  const handleStep = (toDo) => {
+    setMeetingFormState(
+      toDo === "+"
+        ? { ...meetingFormState, step: step + 1 }
+        : { ...meetingFormState, step: step - 1 }
+    );
+  };
 
   return (
-    <div className="w-full h-3/4 items-center justify-center flex flex-col">
+    <div className="w-full md:w-1/2 border h-3/4 items-center justify-center flex flex-col">
       {step === 1 ? (
         <Step1 data={data} />
       ) : step === 2 ? (
@@ -21,7 +28,18 @@ function MultiForm({ meetingData }) {
       ) : (
         <Step3 data={data} />
       )}
-      <button>{ step < 3 ? "Next" : "Back"} </button>
+      <div className="w-full flex space-x-4 items-center justify-center">
+        {step < 3 && (
+          <button onClick={() => handleStep("+")} className="form-btn">
+            Next
+          </button>
+        )}
+        {step > 1 && (
+          <button onClick={() => handleStep("-")} className="form-btn">
+            Back
+          </button>
+        )}
+      </div>
     </div>
   );
 }
