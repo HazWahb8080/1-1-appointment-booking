@@ -26,7 +26,7 @@ function Meeting() {
   useEffect(() => {
     if (!meetingQuery) return;
     onSnapshot(
-      query(collection(db, "published"), where("title", "==", meetingQuery)),
+      query(collection(db, "published"), where("linkTitle", "==", meetingQuery)),
       (snapshot) => {
         const meetingDoc = snapshot.docs.filter((doc) => doc.id)[0].data();
         const meetingId = meetingDoc.date;

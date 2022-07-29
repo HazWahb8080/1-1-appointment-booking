@@ -38,6 +38,7 @@ function Step3() {
     });
     await addDoc(collection(db, "published"), {
       title: Link,
+      linkTitle: Link.trim().replace(/ /g, "-"),
       timestamp: serverTimestamp(),
       organizer: session?.user?.email,
       date: queryId,
