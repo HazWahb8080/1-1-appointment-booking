@@ -5,7 +5,7 @@ function Step2({meetingData}) {
   const {data,dates} = meetingData;
   return (
     <div className='w-full'>
-      <Calendar meetingPage={true} meetingDates={dates}  />
+      <Calendar meetingPage={true} meetingDates={dates} meetingData={data}  />
     </div>
   )
 }

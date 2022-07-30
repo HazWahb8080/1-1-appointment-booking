@@ -26,7 +26,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Slot from "./Slot";
 
-export default function Calendar({ meetingPage, meetingDates }) {
+export default function Calendar({ meetingPage, meetingDates, meetingData }) {
   let today = startOfToday();
   const [formData, setFormData] = useRecoilState(FormState);
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
@@ -55,6 +55,11 @@ export default function Calendar({ meetingPage, meetingDates }) {
   const [interval, setInterval] = useState(15);
   const [activeDate, setActiveDate] = useState();
   const [Loading, setLoading] = useState();
+  // fetching the slots of the available date on the meeting page 
+  useEffect(() => {
+    console.log(meetingData)
+  }, [activeDate]);
+
   useEffect(() => {
     if (meetingPage) return;
     onSnapshot(
@@ -155,7 +160,11 @@ export default function Calendar({ meetingPage, meetingDates }) {
                 className="w-full border border-gray-300 py-2 px-2"
               />
             </div>
-            {Loading && <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll items-center justify-center flex ">loading...!</div>}
+            {Loading && (
+              <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll items-center justify-center flex ">
+                loading...!
+              </div>
+            )}
             {!Loading &&
               (meetingDates ? (
                 <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll "></div>
