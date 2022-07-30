@@ -24,21 +24,21 @@ import { db } from "../../firebase";
 import { FormState } from "../../atoms/FormAtom";
 import { useRouter } from "next/router";
 
-
-function Day({ day, dayIdx, currentMonth }) {
+function Day({ day, dayIdx, currentMonth, meetingPage }) {
   const { data: session } = useSession();
   const [formData, setFormData] = useRecoilState(FormState);
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
   let [selectedDay, setSelectedDay] = useRecoilState(SelectedDaysState);
   const [active, setActive] = useState(null);
-   const router = useRouter();
-  const {create:query} = router.query;
+  const router = useRouter();
+  const { create: query } = router.query;
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
   useEffect(() => {
+    if (meetingPage) return;
     if (session && day && formData) {
       onSnapshot(
         collection(
@@ -58,7 +58,7 @@ function Day({ day, dayIdx, currentMonth }) {
         }
       );
     }
-  }, [session, day, formData]);
+  }, [session, day, formData, meetingPage]);
 
   const handleDates = async () => {
     const ref_1 = collection(db, "users");
@@ -93,7 +93,7 @@ function Day({ day, dayIdx, currentMonth }) {
     >
       <button
         type="button"
-        onClick={handleDates}
+        onClick={() => (meetingPage ? null : handleDates())}
         className={classNames(
           !isEqual(day.toString(), selectedDay) &&
             isToday(day.toString()) &&

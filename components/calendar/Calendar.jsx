@@ -26,7 +26,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Slot from "./Slot";
 
-export default function Calendar() {
+export default function Calendar({meetingPage}) {
   let today = startOfToday();
   const [formData, setFormData] = useRecoilState(FormState);
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
@@ -56,13 +56,14 @@ export default function Calendar() {
   const [activeDate, setActiveDate] = useState();
   const [Loading, setLoading] = useState();
   useEffect(() => {
+    if (meetingPage) return;
     onSnapshot(
       collection(db, "users", usermail, "appointments", query, "dates"),
       (snapshot) => {
         setDates(snapshot.docs);
       }
     );
-  }, []);
+  }, [meetingPage]);
 
   return (
     <div className="pt-16">
@@ -102,6 +103,7 @@ export default function Calendar() {
             <div className="grid grid-cols-7 mt-2 text-sm">
               {days.map((day, dayIdx) => (
                 <Day
+                  meetingPage={meetingPage ? meetingPage : false}
                   key={day.toString()}
                   day={day}
                   currentMonth={currentMonth}

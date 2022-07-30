@@ -20,7 +20,7 @@ function MultiForm({ meetingData }) {
   };
 
   return (
-    <div className="w-full my-6 md:w-1/2 border h-3/4 items-center justify-center flex flex-col">
+    <div className="w-full my-6 md:w-1/2 space-y-6  h-3/4 items-center justify-center flex flex-col">
       {step === 1 ? (
         <Step1 data={data} />
       ) : step === 2 ? (

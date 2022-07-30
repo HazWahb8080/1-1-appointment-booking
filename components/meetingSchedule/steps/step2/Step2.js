@@ -1,8 +1,11 @@
 import React from 'react'
+import Calendar from './../../../calendar/Calendar';
 
 function Step2() {
   return (
-    <div>Step2</div>
+    <div>
+      <Calendar meetingPage={true} />
+    </div>
   )
 }
 
