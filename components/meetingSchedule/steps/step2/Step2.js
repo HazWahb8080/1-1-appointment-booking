@@ -1,10 +1,11 @@
 import React from 'react'
 import Calendar from './../../../calendar/Calendar';
 
-function Step2() {
+function Step2({meetingData}) {
+  const {data,dates} = meetingData;
   return (
-    <div>
-      <Calendar meetingPage={true} />
+    <div className='w-full'>
+      <Calendar meetingPage={true} meetingDates={dates}  />
     </div>
   )
 }

@@ -26,7 +26,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Slot from "./Slot";
 
-export default function Calendar({meetingPage}) {
+export default function Calendar({ meetingPage, meetingDates }) {
   let today = startOfToday();
   const [formData, setFormData] = useRecoilState(FormState);
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
@@ -103,6 +103,7 @@ export default function Calendar({meetingPage}) {
             <div className="grid grid-cols-7 mt-2 text-sm">
               {days.map((day, dayIdx) => (
                 <Day
+                  meetingDates={meetingDates}
                   meetingPage={meetingPage ? meetingPage : false}
                   key={day.toString()}
                   day={day}
@@ -126,13 +127,21 @@ export default function Calendar({meetingPage}) {
               className="select input cursor-pointer"
             >
               <option>choose date</option>
-              {dates.map((date) => (
-                <option key={date.id} value={date.id}>
-                  {formatISO(new Date(date.id), {
-                    representation: "date",
-                  })}
-                </option>
-              ))}
+              {meetingDates
+                ? meetingDates.map((date, i) => (
+                    <option key={date.id + i} value={date.id}>
+                      {formatISO(new Date(date.id), {
+                        representation: "date",
+                      })}
+                    </option>
+                  ))
+                : dates.map((date) => (
+                    <option key={date.id + i} value={date.id}>
+                      {formatISO(new Date(date.id), {
+                        representation: "date",
+                      })}
+                    </option>
+                  ))}
             </select>
             <div className="w-full">
               <p className="text-gray-600">Interval</p>
@@ -146,28 +155,34 @@ export default function Calendar({meetingPage}) {
                 className="w-full border border-gray-300 py-2 px-2"
               />
             </div>
-            {!Loading && (
-              <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll ">
-                {Array.from({ length: 12 }, (_, i) => (
-                  <Slot
-                    hour={i + 1}
-                    int={interval}
-                    am
-                    activeDate={activeDate}
-                  />
-                ))}
+            {Loading && <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll items-center justify-center flex ">loading...!</div>}
+            {!Loading &&
+              (meetingDates ? (
+                <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll "></div>
+              ) : (
+                <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll ">
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <Slot
+                      key={i}
+                      hour={i + 1}
+                      int={interval}
+                      am
+                      activeDate={activeDate}
+                    />
+                  ))}
 
-                <div className="border border-black/10 p-0 w-full my-4" />
-                {Array.from({ length: 12 }, (_, i) => (
-                  <Slot
-                    hour={i + 1}
-                    int={interval}
-                    pm
-                    activeDate={activeDate}
-                  />
-                ))}
-              </div>
-            )}
+                  <div className="border border-black/10 p-0 w-full my-4" />
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <Slot
+                      key={i}
+                      hour={i + 1}
+                      int={interval}
+                      pm
+                      activeDate={activeDate}
+                    />
+                  ))}
+                </div>
+              ))}
           </section>
         </div>
       </div>

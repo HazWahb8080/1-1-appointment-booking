@@ -9,8 +9,8 @@ function Slots({slots,open}) {
               key={slot.id}
               className="flex items-center justify-center px-2 py-2"
               >
-                <h1 className=""> {slot.data().slot}</h1>
-                <h1 className=""> {slot.id.includes("am") ? "am" : "pm"}</h1>
+                <h1> {slot.data().slot}</h1>
+                <h1> {slot.id.includes("am") ? "am" : "pm"}</h1>
               </div>
             ))}
           </div> : (

@@ -24,7 +24,7 @@ import { db } from "../../firebase";
 import { FormState } from "../../atoms/FormAtom";
 import { useRouter } from "next/router";
 
-function Day({ day, dayIdx, currentMonth, meetingPage }) {
+function Day({ day, dayIdx, currentMonth, meetingPage, meetingDates }) {
   const { data: session } = useSession();
   const [formData, setFormData] = useRecoilState(FormState);
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
@@ -38,6 +38,14 @@ function Day({ day, dayIdx, currentMonth, meetingPage }) {
   }
 
   useEffect(() => {
+    //  here we are displating the dates available for the user to pick from.
+    if (meetingDates) {
+      meetingDates.forEach((vDate) => {
+        if (vDate.id === day.toString()) {
+          setActive(day.toString());
+        }
+      });
+    }
     if (meetingPage) return;
     if (session && day && formData) {
       onSnapshot(
@@ -83,6 +91,9 @@ function Day({ day, dayIdx, currentMonth, meetingPage }) {
       );
     }
   };
+  const handlePickDates = () => {
+    
+  }
 
   return (
     <div
@@ -93,7 +104,7 @@ function Day({ day, dayIdx, currentMonth, meetingPage }) {
     >
       <button
         type="button"
-        onClick={() => (meetingPage ? null : handleDates())}
+        onClick={() => (meetingPage ? handlePickDates() : handleDates())}
         className={classNames(
           !isEqual(day.toString(), selectedDay) &&
             isToday(day.toString()) &&
