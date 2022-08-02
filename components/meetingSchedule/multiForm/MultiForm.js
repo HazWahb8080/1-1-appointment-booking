@@ -36,7 +36,7 @@ function MultiForm({ meetingData }) {
         )}
         {step === 3 && (
           <button 
-          disabled = {!meetingFormState.name.trim() || !meetingFormState.email.trim()}
+          disabled = {!name.trim() || !email.trim()}
           onClick={() => handleStep("-")} className="form-btn bg-blue-100 border-blue-800 ">
             book now 
           </button>

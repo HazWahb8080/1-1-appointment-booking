@@ -7,10 +7,11 @@ import {
   parse,
   startOfToday,
   formatISO,
+  toDate
 } from "date-fns";
 import { Fragment, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { FormState } from "../../atoms/FormAtom";
+import { FormState,MeetingFormState } from "../../atoms/FormAtom";
 import Day from "./Day";
 import {
   collection,
@@ -36,6 +37,8 @@ export default function Calendar({
 }) {
   let today = startOfToday();
   const [formData, setFormData] = useRecoilState(FormState);
+   const [meetingFormState, setMeetingFormState] =
+    useRecoilState(MeetingFormState);
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
@@ -60,7 +63,7 @@ export default function Calendar({
   // get dates created to add timeslots to it
   const [dates, setDates] = useState([]);
   const [interval, setInterval] = useState(15);
-  const [activeDate, setActiveDate] = useState();
+  const [activeDate, setActiveDate] = useState("");
   const [activeDateSlots, setActiveDateSlots] = useState([]);
   const [Loading, setLoading] = useState();
   // fetching the slots of the available date on the meeting page
@@ -151,7 +154,6 @@ export default function Calendar({
 
           <section className="mt-12 md:mt-0 md:pl-14 space-y-6 ">
             <select
-              placeholder="choose date"
               onChange={(e) => {
                 setActiveDate(e.target.value);
                 setLoading(true);
@@ -162,7 +164,11 @@ export default function Calendar({
               }}
               className="select input cursor-pointer"
             >
-              <option>choose date</option>
+              <option>{
+                (meetingFormState.selectedDate.date && format(
+                  toDate(new Date(meetingFormState.selectedDate.date)),
+                  "dd-MM-yyy"
+                )) || "choose a date"}</option>
               {meetingDates
                 ? meetingDates.map((date, i) => (
                     <option key={date.id + i} value={date.id}>
@@ -201,8 +207,13 @@ export default function Calendar({
             {!Loading &&
               (meetingDates ? (
                 <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll ">
-                  {activeDateSlots.map(slot=>(
-                    <AvailableSlot key={slot.data().slot} slot={slot.data().slot} amOrpm={ slot.id.includes("am") ? "am" : "pm" } activeDate={activeDate} />
+                  {activeDateSlots.map((slot) => (
+                    <AvailableSlot
+                      key={slot.data().slot}
+                      slot={slot.data().slot}
+                      amOrpm={slot.id.includes("am") ? "am" : "pm"}
+                      activeDate={activeDate}
+                    />
                   ))}
                 </div>
               ) : (
