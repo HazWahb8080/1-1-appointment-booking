@@ -1,11 +1,16 @@
 import React from "react";
+import { useRecoilState } from 'recoil';
+import { MeetingFormState } from "../../../atoms/FormAtom";
 
-function AvailableSlot({ slot, amOrpm }) {
+function AvailableSlot({ slot, amOrpm , activeDate }) {
+    const [pickedDates,setPickedDates] = useRecoilState(MeetingFormState);
+    const slotamOrpm = slot + amOrpm;
   return (
-    <div className="w-full border border-black/5 py-2 my-3 hover:border-black smooth cursor-pointer flex items-center justify-center">
+    <div
+    onClick={()=>setPickedDates({...pickedDates,selectedDate:{date:activeDate,slot:slotamOrpm}})}
+    className="w-full border border-black/5 py-2 my-3 hover:border-black smooth cursor-pointer flex items-center justify-center">
       <h1>
-        {slot}
-        {amOrpm}
+        {slotamOrpm}
       </h1>
     </div>
   );

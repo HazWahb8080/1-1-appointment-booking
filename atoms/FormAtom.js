@@ -15,6 +15,6 @@ export const MeetingFormState = atom({
     step: 1,
     email:"",
     name:"",
-    selectedDates: [],
+    selectedDate: {},
   },
 });

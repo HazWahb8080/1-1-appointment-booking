@@ -28,10 +28,17 @@ function MultiForm({ meetingData }) {
       ) : (
         <Step3 meetingData={meetingData} />
       )}
-      <div className="w-full flex space-x-4 items-center justify-center">
+      <div className="w-full flex px-2 space-x-4 items-center justify-center">
         {step > 1 && (
           <button onClick={() => handleStep("-")} className="form-btn">
             Back
+          </button>
+        )}
+        {step === 3 && (
+          <button 
+          disabled = {!meetingFormState.name.trim() || !meetingFormState.email.trim()}
+          onClick={() => handleStep("-")} className="form-btn bg-blue-100 border-blue-800 ">
+            book now 
           </button>
         )}
         {step < 3 && (
