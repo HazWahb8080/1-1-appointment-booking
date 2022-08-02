@@ -25,8 +25,15 @@ import { db } from "../../firebase";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Slot from "./Slot";
+import AvailableSlot from "../meetingSchedule/slot/AvailableSlot";
 
-export default function Calendar({ meetingPage, meetingDates, meetingData }) {
+export default function Calendar({
+  meetingPage,
+  meetingDates,
+  meetingData,
+  meetingEmail,
+  meetingId,
+}) {
   let today = startOfToday();
   const [formData, setFormData] = useRecoilState(FormState);
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
@@ -54,20 +61,44 @@ export default function Calendar({ meetingPage, meetingDates, meetingData }) {
   const [dates, setDates] = useState([]);
   const [interval, setInterval] = useState(15);
   const [activeDate, setActiveDate] = useState();
+  const [activeDateSlots, setActiveDateSlots] = useState([]);
   const [Loading, setLoading] = useState();
-  // fetching the slots of the available date on the meeting page 
+  // fetching the slots of the available date on the meeting page
+  if (usermail && query) {
+    const docRef = collection(
+      db,
+      "users",
+      usermail,
+      "appointments",
+      query,
+      "dates"
+    );
+  }
   useEffect(() => {
-    console.log(meetingData)
-  }, [activeDate]);
+    // here we are getting the slots available for each date
+    if (!activeDate || !meetingEmail || !meetingId) return;
+    setLoading(true);
+    const slotsRef = collection(
+      db,
+      "users",
+      meetingEmail,
+      "appointments",
+      meetingId,
+      "dates",
+      activeDate,
+      "slots"
+    );
+    onSnapshot(slotsRef, (snapshot) => {
+      setActiveDateSlots(snapshot.docs);
+      setLoading(false);
+    });
+  }, [activeDate, meetingEmail, meetingId]);
 
   useEffect(() => {
     if (meetingPage) return;
-    onSnapshot(
-      collection(db, "users", usermail, "appointments", query, "dates"),
-      (snapshot) => {
-        setDates(snapshot.docs);
-      }
-    );
+    onSnapshot(docRef, (snapshot) => {
+      setDates(snapshot.docs);
+    });
   }, [meetingPage]);
 
   return (
@@ -140,7 +171,7 @@ export default function Calendar({ meetingPage, meetingDates, meetingData }) {
                       })}
                     </option>
                   ))
-                : dates.map((date) => (
+                : dates.map((date, i) => (
                     <option key={date.id + i} value={date.id}>
                       {formatISO(new Date(date.id), {
                         representation: "date",
@@ -148,18 +179,20 @@ export default function Calendar({ meetingPage, meetingDates, meetingData }) {
                     </option>
                   ))}
             </select>
-            <div className="w-full">
-              <p className="text-gray-600">Interval</p>
-              <input
-                value={interval}
-                type="number"
-                step={15}
-                onChange={(e) => setInterval(e.target.value)}
-                max="45"
-                min="15"
-                className="w-full border border-gray-300 py-2 px-2"
-              />
-            </div>
+            {!meetingPage && (
+              <div className="w-full">
+                <p className="text-gray-600">Interval</p>
+                <input
+                  value={interval}
+                  type="number"
+                  step={15}
+                  onChange={(e) => setInterval(e.target.value)}
+                  max="45"
+                  min="15"
+                  className="w-full border border-gray-300 py-2 px-2"
+                />
+              </div>
+            )}
             {Loading && (
               <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll items-center justify-center flex ">
                 loading...!
@@ -167,7 +200,11 @@ export default function Calendar({ meetingPage, meetingDates, meetingData }) {
             )}
             {!Loading &&
               (meetingDates ? (
-                <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll "></div>
+                <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll ">
+                  {activeDateSlots.map(slot=>(
+                    <AvailableSlot key={slot} slot={slot} />
+                  ))}
+                </div>
               ) : (
                 <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll ">
                   {Array.from({ length: 12 }, (_, i) => (

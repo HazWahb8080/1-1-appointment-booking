@@ -55,7 +55,7 @@ function Dash() {
           ) : (
             <div
               className="w-full lg:w-3/4 items-center justify-center flex 
-          flex-col h-fit overflow-y-scroll scrollbar-hide  border-b px-4 py-4 border-black/50"
+          flex-col h-fit overflow-y-scroll scrollbar-hide p-4"
             >
               {appointments.map((appointment) => (
                 <Appointment

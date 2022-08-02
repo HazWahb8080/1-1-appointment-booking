@@ -7,7 +7,7 @@ import { MeetingFormState } from "../../../atoms/FormAtom";
 function MultiForm({ meetingData }) {
   // data has the title
   // dates has the docs of the dates avaialable to this appointment with slots within
-  const { data, dates } = meetingData;
+  const { data, dates} = meetingData;
   const [meetingFormState, setMeetingFormState] =
     useRecoilState(MeetingFormState);
   const { step, email, name, selectedDates } = meetingFormState;
@@ -29,14 +29,14 @@ function MultiForm({ meetingData }) {
         <Step3 meetingData={meetingData} />
       )}
       <div className="w-full flex space-x-4 items-center justify-center">
-        {step < 3 && (
-          <button onClick={() => handleStep("+")} className="form-btn">
-            { step === 1 ? "Let's get started" : "Next"}
-          </button>
-        )}
         {step > 1 && (
           <button onClick={() => handleStep("-")} className="form-btn">
             Back
+          </button>
+        )}
+        {step < 3 && (
+          <button onClick={() => handleStep("+")} className="form-btn">
+            { step === 1 ? "Let's get started" : "Next"}
           </button>
         )}
       </div>

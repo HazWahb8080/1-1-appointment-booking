@@ -43,9 +43,9 @@ function Header({ meetingPage }) {
   return (
     <div className="shadow-md shadow-gray-50 w-full flex py-6 px-12 items-center justify-between">
       {/* logo */}
-      <div className="flex space-x-1">
+      <div onClick={()=>router.push("/dash")} className="flex space-x-1 hover:opacity-80 cursor-pointer ">
         <div className="w-8 h-8 items-center justify-center flex">{logo}</div>
-        <h1 className="self-center font-medium text-gray-900 text-xl">
+        <h1  className="self-center font-medium text-gray-900 text-xl">
           Boookly
         </h1>
       </div>

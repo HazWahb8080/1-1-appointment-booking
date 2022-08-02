@@ -47,6 +47,8 @@ function Meeting() {
       setMeetingData({
         data: meetingData.data(),
         dates: meetingDatesData.docs,
+        email:email,
+        id:Id
       });
     };
     getMeetingData();
