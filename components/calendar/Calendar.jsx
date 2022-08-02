@@ -202,7 +202,7 @@ export default function Calendar({
               (meetingDates ? (
                 <div className="border-t border-black py-3 px-3 h-[300px] scrollbar-hide overflow-y-scroll ">
                   {activeDateSlots.map(slot=>(
-                    <AvailableSlot key={slot} slot={slot} />
+                    <AvailableSlot key={slot} slot={slot.data().slot} amOrpm={ slot.id.includes("am") ? "am" : "pm" } />
                   ))}
                 </div>
               ) : (
