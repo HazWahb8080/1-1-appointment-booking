@@ -18,3 +18,7 @@ export const MeetingFormState = atom({
     selectedDate: {date:null,slot:null},
   },
 });
+export const activeDateSlotsState = atom({
+   key: "activeDateSlotsState", // unique ID (with respect to other atoms/selectors)
+  default: []
+})
