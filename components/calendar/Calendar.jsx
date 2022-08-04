@@ -161,7 +161,7 @@ export default function Calendar({
 
           <section className="mt-12 md:mt-0 md:pl-14 space-y-6 ">
             <select
-            defaultValue={"choose a date"}
+              defaultValue={activeDate && activeDate}
               onChange={(e) => {
                 setActiveDate(e.target.value);
                 setLoading(true);
