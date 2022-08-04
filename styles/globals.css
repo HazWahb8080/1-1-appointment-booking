@@ -60,4 +60,12 @@ a {
     @apply w-fit px-3 h-fit cursor-pointer hover:bg-black 
               hover:text-gray-100 smooth items-center justify-center flex py-2 border border-gray-900 flex-col
   }
+  .available-slot{
+    @apply w-full border border-black/5 py-2 my-3
+       hover:border-black smooth cursor-pointer flex items-center justify-center 
+  }
+  .available-slot-selected{
+    @apply w-full border py-2 my-3 bg-black text-white
+       border-black smooth cursor-pointer flex items-center justify-center 
+  }
 }

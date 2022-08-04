@@ -11,7 +11,12 @@ import {
 } from "date-fns";
 import { Fragment, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { FormState, MeetingFormState,activeDateSlotsState } from "../../atoms/FormAtom";
+import {
+  FormState,
+  MeetingFormState,
+  activeDateSlotsState,
+  ActiveDateState,
+} from "../../atoms/FormAtom";
 import Day from "./Day";
 import {
   collection,
@@ -63,8 +68,9 @@ export default function Calendar({
   // get dates created to add timeslots to it
   const [dates, setDates] = useState([]);
   const [interval, setInterval] = useState(15);
-  const [activeDate, setActiveDate] = useState("");
-  const [activeDateSlots, setActiveDateSlots] = useRecoilState(activeDateSlotsState);
+  const [activeDate, setActiveDate] = useRecoilState(ActiveDateState);
+  const [activeDateSlots, setActiveDateSlots] =
+    useRecoilState(activeDateSlotsState);
   const [Loading, setLoading] = useState();
   // fetching the slots of the available date on the meeting page
   if (usermail && query) {
@@ -95,6 +101,7 @@ export default function Calendar({
       setActiveDateSlots(snapshot.docs);
       setLoading(false);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeDate, meetingEmail, meetingId]);
 
   useEffect(() => {
@@ -154,6 +161,7 @@ export default function Calendar({
 
           <section className="mt-12 md:mt-0 md:pl-14 space-y-6 ">
             <select
+            defaultValue={"choose a date"}
               onChange={(e) => {
                 setActiveDate(e.target.value);
                 setLoading(true);
@@ -164,14 +172,7 @@ export default function Calendar({
               }}
               className="select input cursor-pointer"
             >
-              <option>
-                {(meetingFormState.selectedDate.date &&
-                  format(
-                    toDate(new Date(meetingFormState.selectedDate.date)),
-                    "dd-MM-yyy"
-                  )) ||
-                  "choose a date"}
-              </option>
+              <option> choose a date</option>
               {meetingDates
                 ? meetingDates.map((date, i) => (
                     <option key={date.id + i} value={date.id}>
