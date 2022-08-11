@@ -26,6 +26,7 @@ function Header({ meetingPage }) {
   const titleRef = useRef(null);
   const usermail = session?.user?.email;
   const [formData, setFormData] = useRecoilState(FormState);
+
   const createAppointment = async () => {
     if (!usermail) return;
     const doc = await addDoc(
@@ -35,17 +36,20 @@ function Header({ meetingPage }) {
         timestamp: serverTimestamp(),
       }
     );
+    router.push(`/create/${doc.id}`);
     setOpen(false);
     setFormData({ ...formData, step: 1 });
-    router.push(`/create/${doc.id}`);
   };
 
   return (
     <div className="shadow-md shadow-gray-50 w-full flex py-6 px-12 items-center justify-between">
       {/* logo */}
-      <div onClick={()=>router.push("/dash")} className="flex space-x-1 hover:opacity-80 cursor-pointer ">
+      <div
+        onClick={() => router.push("/dash")}
+        className="flex space-x-1 hover:opacity-80 cursor-pointer "
+      >
         <div className="w-8 h-8 items-center justify-center flex">{logo}</div>
-        <h1  className="self-center font-medium text-gray-900 text-xl">
+        <h1 className="self-center font-medium text-gray-900 text-xl">
           Boookly
         </h1>
       </div>
@@ -89,6 +93,7 @@ function Header({ meetingPage }) {
                   }
                   type="text"
                   className="input"
+                  onKeyPress={(e) => e.key === "Enter" && createAppointment()}
                 />
                 <div
                   onClick={createAppointment}
